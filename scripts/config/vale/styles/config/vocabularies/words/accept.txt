@@ -2,6 +2,7 @@
 Bitwarden
 bot
 Cognito
+config
 Cyber
 Dependabot
 draw.io
@@ -9,6 +10,7 @@ drawio
 endcapture
 endfor
 endraw
+[Ee]nv
 GitHub
 Gitleaks
 Grype
