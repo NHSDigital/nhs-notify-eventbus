@@ -1,13 +1,10 @@
 module "s3bucket_lambda_artefacts" {
   source = "git::https://github.com/NHSDigital/nhs-notify-shared-modules.git//infrastructure/modules/s3bucket?ref=v1.0.0"
-  providers = {
-    aws = aws.us-east-1
-  }
 
   name = "lambda-artefacts"
 
   aws_account_id = var.aws_account_id
-  region         = "us-east-1"
+  region         = var.region
   project        = var.project
   environment    = var.environment
   component      = var.component

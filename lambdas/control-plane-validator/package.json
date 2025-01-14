@@ -1,0 +1,20 @@
+{
+  "name": "control-plane-validator",
+  "version": "1.0.0",
+  "description": "AWS Lambda function for validating Notify control plane events",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "roots": [
+      "<rootDir>/src"
+    ]
+  },
+  "author": "NHS Notify",
+  "license": "ISC"
+}
