@@ -1,5 +1,5 @@
 module "lambda_data_plane_validator" {
-  source = "git::https://github.com/NHSDigital/nhs-notify-shared-modules.git//infrastructure/modules/lambda?ref=v1.0.4"
+  source = "git::https://github.com/NHSDigital/nhs-notify-shared-modules.git//infrastructure/modules/lambda?ref=v1.0.5"
 
   function_name = "data-plane-validator"
   description   = "A function to validate incomming data plane events"

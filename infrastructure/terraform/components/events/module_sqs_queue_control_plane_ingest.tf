@@ -1,5 +1,5 @@
 module "sqs_queue_control_plane_ingest" {
-  source = "git::https://github.com/NHSDigital/nhs-notify-shared-modules.git//infrastructure/modules/sqs?ref=v1.0.4"
+  source = "git::https://github.com/NHSDigital/nhs-notify-shared-modules.git//infrastructure/modules/sqs?ref=v1.0.5"
 
   aws_account_id = var.aws_account_id
   component      = var.component
@@ -7,13 +7,36 @@ module "sqs_queue_control_plane_ingest" {
   project        = var.project
   region         = var.region
 
-  name                       = "${local.csi}-control-plane-ingest"
+  name                       = "control-plane-ingest"
   sqs_kms_key_arn            = module.kms.key_arn
   message_retention_seconds  = 345600
   create_dlq                 = true
   visibility_timeout_seconds = 30
 
+  sqs_policy_overload = data.aws_iam_policy_document.sqs_control_plane_ingest.json
+
   default_tags = {
     function = "Control Plane Ingest"
+  }
+}
+
+
+data "aws_iam_policy_document" "sqs_control_plane_ingest" {
+
+  statement {
+    effect = "Allow"
+
+    actions = [
+      "sqs:SendMessage",
+    ]
+
+    principals {
+      type        = "AWS"
+      identifiers = [for dep in var.delegated_control_event_publishers : lookup(dep, "publishing_role_arn",null)]
+    }
+
+    resources = [
+      "arn:aws:sqs:${var.region}:${var.aws_account_id}:${local.csi}-control-plane-ingest-queue" # Build ARN to prevent circular-reference
+    ]
   }
 }

@@ -80,3 +80,21 @@ variable "force_lambda_code_deploy" {
   description = "If the lambda package in s3 has the same commit id tag as the terraform build branch, the lambda will not update automatically. Set to True if making changes to Lambda code from on the same commit for example during development"
   default     = false
 }
+
+variable "delegated_data_event_publishers" {
+  type = list(object({
+    account_name = string,
+    publishing_role_arn = string
+  }))
+  description = "An object representing delegation of data event publishers"
+  default     = []
+}
+
+variable "delegated_control_event_publishers" {
+  type = list(object({
+    account_name = string,
+    publishing_role_arn = string
+  }))
+  description = "An object representing delegation of control event publishers"
+  default     = []
+}
