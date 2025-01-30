@@ -16,6 +16,7 @@ data "aws_iam_policy_document" "github_deploy" {
 
     actions = [
       "cloudfront:*",
+      "servicediscovery:*",
       "wafv2:*",
     ]
     resources = ["*"]
