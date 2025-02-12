@@ -81,20 +81,8 @@ variable "force_lambda_code_deploy" {
   default     = false
 }
 
-variable "delegated_data_event_publishers" {
-  type = list(object({
-    account_name = string,
-    publishing_role_arn = string
-  }))
-  description = "An object representing delegation of data event publishers"
-  default     = []
-}
-
-variable "delegated_control_event_publishers" {
-  type = list(object({
-    account_name = string,
-    publishing_role_arn = string
-  }))
-  description = "An object representing delegation of control event publishers"
+variable "delegated_event_publishing_roles" {
+  type        = list
+  description = "An object representing delegation of event publishers"
   default     = []
 }
