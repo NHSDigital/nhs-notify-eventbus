@@ -1,5 +1,5 @@
 module "kms" {
-  source = "git::https://github.com/NHSDigital/nhs-notify-shared-modules.git//infrastructure/modules/kms?ref=v1.0.5"
+  source = "git::https://github.com/NHSDigital/nhs-notify-shared-modules.git//infrastructure/modules/kms?ref=v1.0.8"
 
   aws_account_id = var.aws_account_id
   component      = var.component
@@ -45,7 +45,7 @@ data "aws_iam_policy_document" "kms" {
   }
 
   dynamic "statement" {
-    for_each = var.delegated_data_event_publishers
+    for_each = length(var.delegated_event_publishing_roles) > 0 ? [1]:[]
     content {
       effect = "Allow"
 
@@ -53,26 +53,12 @@ data "aws_iam_policy_document" "kms" {
 
       principals {
         type = "AWS"
-        identifiers = [
-          statement.value.publishing_role_arn
-        ]
+        identifiers = var.delegated_event_publishing_roles
       }
-    }
-  }
 
-  dynamic "statement" {
-    for_each = var.delegated_control_event_publishers
-    content {
-      effect = "Allow"
-
-      actions = [ "kms:GenerateDataKey" ]
-
-      principals {
-        type = "AWS"
-        identifiers = [
-          statement.value.publishing_role_arn
-        ]
-      }
+      resources = [
+        "*"
+      ]
     }
   }
 }
