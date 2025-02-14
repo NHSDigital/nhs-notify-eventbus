@@ -17,7 +17,7 @@ data "aws_iam_policy_document" "control_plane_ingest" {
 
     principals {
       type        = "AWS"
-      identifiers = [for dep in var.delegated_control_event_publishers : lookup(dep, "publishing_role_arn",null)]
+      identifiers = var.delegated_event_publishing_roles
     }
   }
 }
