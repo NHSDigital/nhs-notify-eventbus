@@ -45,14 +45,14 @@ data "aws_iam_policy_document" "kms" {
   }
 
   dynamic "statement" {
-    for_each = length(var.delegated_event_publishing_roles) > 0 ? [1]:[]
+    for_each = length(var.delegated_event_publishing_roles) > 0 ? [1] : []
     content {
       effect = "Allow"
 
-      actions = [ "kms:GenerateDataKey" ]
+      actions = ["kms:GenerateDataKey"]
 
       principals {
-        type = "AWS"
+        type        = "AWS"
         identifiers = var.delegated_event_publishing_roles
       }
 

@@ -82,7 +82,7 @@ variable "force_lambda_code_deploy" {
 }
 
 variable "delegated_event_publishing_roles" {
-  type        = list
+  type        = list(any)
   description = "An object representing delegation of event publishers"
   default     = []
 }
