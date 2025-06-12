@@ -86,8 +86,3 @@ variable "delegated_event_publishing_roles" {
   description = "An object representing delegation of event publishers"
   default     = []
 }
-
-variable "observability_account_id" {
-  type        = string
-  description = "The Observability Account ID that needs access"
-}
