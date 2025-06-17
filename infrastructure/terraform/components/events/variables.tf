@@ -86,3 +86,9 @@ variable "delegated_event_publishing_roles" {
   description = "An object representing delegation of event publishers"
   default     = []
 }
+
+variable "event_target_arns" {
+  description = "A map of event target ARNs keyed by name"
+  type        = map(string)
+  default     = {}
+}
