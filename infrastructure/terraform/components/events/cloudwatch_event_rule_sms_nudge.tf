@@ -24,5 +24,5 @@ resource "aws_cloudwatch_event_target" "sms_nudge" {
   rule           = aws_cloudwatch_event_rule.sms_nudge.name
   arn            = var.event_target_arns["sms_nudge"]
   target_id      = "unnotified-events-target"
-  event_bus_name = aws_cloudwatch_event_bus.control_plane.name
+  event_bus_name = aws_cloudwatch_event_bus.data_plane.name
 }
