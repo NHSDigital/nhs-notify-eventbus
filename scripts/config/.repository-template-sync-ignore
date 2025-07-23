@@ -20,6 +20,7 @@ VERSION
 .devcontainer/
 .github/actions/build-docs
 .github/workflows/*.disabled
+.github/workflows/*.disabled
 */examples/
 docs/
 eslint.config.mjs
