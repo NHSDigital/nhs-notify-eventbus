@@ -20,10 +20,10 @@ data "aws_iam_policy_document" "data_plane_ingest" {
       variable = "aws:PrincipalArn"
 
       values = [
-        flatten([
+        distinct(flatten([
           formatlist("arn:aws:iam::%s:role/comms-*-api-event-publisher", var.event_publisher_account_ids),
           formatlist("arn:aws:iam::%s:role/nhs-notify-*-eventpub", var.event_publisher_account_ids)
-        ])
+        ]))
       ]
     }
   }
