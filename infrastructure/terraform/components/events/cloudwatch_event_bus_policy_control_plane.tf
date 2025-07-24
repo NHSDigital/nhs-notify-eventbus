@@ -15,9 +15,16 @@ data "aws_iam_policy_document" "control_plane_ingest" {
       aws_cloudwatch_event_bus.control_plane.arn
     ]
 
-    principals {
-      type        = "AWS"
-      identifiers = var.delegated_event_publishing_roles
+    condition {
+      test     = "ArnLike"
+      variable = "aws:PrincipalArn"
+
+      values = [
+        flatten([
+          formatlist("arn:aws:iam::%s:role/comms-*-api-event-publisher", var.event_publisher_account_ids),
+          formatlist("arn:aws:iam::%s:role/nhs-notify-*-eventpub", var.event_publisher_account_ids)
+        ])
+      ]
     }
   }
 }
