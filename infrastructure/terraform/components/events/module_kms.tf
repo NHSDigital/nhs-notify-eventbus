@@ -45,20 +45,24 @@ data "aws_iam_policy_document" "kms" {
   }
 
   dynamic "statement" {
-    for_each = length(var.delegated_event_publishing_roles) > 0 ? [1] : []
+    for_each = length(var.event_publisher_account_ids) > 0 ? [1] : []
     content {
       effect = "Allow"
 
       actions = ["kms:GenerateDataKey"]
-
       principals {
         type        = "AWS"
-        identifiers = var.delegated_event_publishing_roles
+        identifiers = distinct(formatlist("arn:aws:iam::%s:root", var.event_publisher_account_ids))
       }
-
-      resources = [
-        "*"
-      ]
+      condition {
+        test     = "ArnLike"
+        variable = "aws:PrincipalArn"
+        values   = distinct(flatten([
+          formatlist("arn:aws:iam::%s:role/comms-*-api-event-publisher", var.event_publisher_account_ids),
+          formatlist("arn:aws:iam::%s:role/nhs-notify-*-eventpub", var.event_publisher_account_ids)
+        ]))
+      }
+      resources = ["*"]
     }
   }
 }
