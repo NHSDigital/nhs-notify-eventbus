@@ -19,12 +19,10 @@ data "aws_iam_policy_document" "control_plane_ingest" {
       test     = "ArnLike"
       variable = "aws:PrincipalArn"
 
-      values = [
-        distinct(flatten([
-          formatlist("arn:aws:iam::%s:role/comms-*-api-event-publisher", var.event_publisher_account_ids),
-          formatlist("arn:aws:iam::%s:role/nhs-notify-*-eventpub", var.event_publisher_account_ids)
-        ]))
-      ]
+      values = distinct(flatten([
+        formatlist("arn:aws:iam::%s:role/comms-*-api-event-publisher", var.event_publisher_account_ids),
+        formatlist("arn:aws:iam::%s:role/nhs-notify-*-eventpub", var.event_publisher_account_ids)
+      ]))
     }
   }
 }
