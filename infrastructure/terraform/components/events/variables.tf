@@ -81,9 +81,9 @@ variable "force_lambda_code_deploy" {
   default     = false
 }
 
-variable "delegated_event_publishing_roles" {
+variable "event_publisher_account_ids" {
   type        = list(any)
-  description = "An object representing delegation of event publishers"
+  description = "An object representing account id's of event publishers"
   default     = []
 }
 
