@@ -4,8 +4,8 @@ resource "aws_cloudwatch_event_rule" "template_drafted" {
   event_bus_name = aws_cloudwatch_event_bus.control_plane.name
 
   event_pattern = jsonencode({
-    "detail": {
-      "type": [
+    "detail" : {
+      "type" : [
         "uk.nhs.notify.template-management.TemplateDrafted.v1"
       ]
     }
