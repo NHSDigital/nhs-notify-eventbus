@@ -17,4 +17,5 @@ resource "aws_cloudwatch_event_target" "template_completed_notify_core_templates
   arn            = var.event_target_arns["notify_core_templates_queue"]
   target_id      = "notify-core-templates-queue"
   event_bus_name = aws_cloudwatch_event_bus.control_plane.name
+  role_arn       = aws_iam_role.send_to_notify_core_templates_queue.arn
 }
