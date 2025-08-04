@@ -38,7 +38,7 @@ data "aws_iam_policy_document" "send_to_notify_core_templates_queue" {
     actions = [
       "sqs:SendMessage",
     ]
-    
+
     resources = [
         var.event_target_arns["notify_core_templates_queue"]
     ]
