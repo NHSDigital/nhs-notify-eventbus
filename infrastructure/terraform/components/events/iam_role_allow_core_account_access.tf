@@ -25,7 +25,7 @@ data "aws_iam_policy_document" "events_assumerole" {
 
 resource "aws_iam_role_policy" "send_to_notify_core_templates_queue" {
   name = "AllowSQSSend"
-  role = aws_iam_role.eventbridge_to_sqs.id
+  role = aws_iam_role.send_to_notify_core_templates_queue.id
 
   policy = data.aws_iam_policy_document.send_to_notify_core_templates_queue.json
 }
