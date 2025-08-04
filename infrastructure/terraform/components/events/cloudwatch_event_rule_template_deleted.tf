@@ -1,7 +1,7 @@
 resource "aws_cloudwatch_event_rule" "template_deleted" {
   name           = "${local.csi}-template-deleted"
   description    = "Event rule for inbound TemplateDeleted events"
-  event_bus_name = aws_cloudwatch_event_bus.data_plane.name
+  event_bus_name = aws_cloudwatch_event_bus.control_plane.name
 
   event_pattern = jsonencode({
     "detail": {
