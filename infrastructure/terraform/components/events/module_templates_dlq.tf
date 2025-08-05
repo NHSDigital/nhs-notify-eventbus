@@ -22,13 +22,5 @@ data "aws_iam_policy_document" "templates_dlq_allow_eventbridge" {
 
     actions   = ["sqs:SendMessage"]
     resources = [module.templates_dlq.sqs_queue_arn]
-
-    condition {
-      test     = "ArnEquals"
-      variable = "aws:SourceArn"
-      values = [
-        aws_cloudwatch_event_bus.control_plane.arn
-      ]
-    }
   }
 }
