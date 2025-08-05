@@ -92,3 +92,8 @@ variable "event_target_arns" {
   type        = map(string)
   default     = {}
 }
+
+variable "notify_core_sqs_kms_arn" {
+  description = "Notify Core SQS KMS ARN"
+  type        = string
+}

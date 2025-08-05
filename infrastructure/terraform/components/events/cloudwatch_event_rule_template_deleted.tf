@@ -18,6 +18,7 @@ resource "aws_cloudwatch_event_target" "template_deleted_notify_core_templates_q
   target_id      = "notify-core-templates-queue"
   event_bus_name = aws_cloudwatch_event_bus.control_plane.name
   role_arn       = aws_iam_role.send_to_notify_core_templates_queue.arn
+  input_path     = "$.detail"
 
   dead_letter_config {
     arn = module.templates_dlq.sqs_queue_arn

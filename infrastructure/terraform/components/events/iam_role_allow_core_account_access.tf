@@ -55,6 +55,6 @@ data "aws_iam_policy_document" "send_to_notify_core_templates_queue" {
       "kms:GenerateDataKey*"
     ]
 
-    resources = [module.kms.key_arn]
+    resources = [module.kms.key_arn, var.notify_core_sqs_kms_arn]
   }
 }
