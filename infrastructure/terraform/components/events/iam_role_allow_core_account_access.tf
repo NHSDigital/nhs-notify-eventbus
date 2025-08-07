@@ -47,10 +47,10 @@ data "aws_iam_policy_document" "send_to_notify_core_templates_queue" {
       "sqs:SendMessage",
     ]
 
-    resources = [
+    resources = flatten([
       var.event_target_arns["notify_core_templates_queue"],
       module.templates_dlq.sqs_queue_arn
-    ]
+    ])
   }
 
   statement {
