@@ -7,11 +7,11 @@ resource "aws_cloudwatch_event_rule" "template_drafted" {
     "detail" : {
       "type" : [
         "uk.nhs.notify.template-management.TemplateDrafted.v1"
-      ]
-    },
-    "source" : [{
-      "wildcard" : "//notify.nhs.uk/app/*/${var.template_management_source_environment}",
-    }]
+      ],
+      "source" : [{
+        "wildcard" : "//notify.nhs.uk/app/*/${var.template_management_source_environment}",
+      }]
+    }
   })
 }
 
