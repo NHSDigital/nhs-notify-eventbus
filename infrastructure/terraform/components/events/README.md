@@ -27,6 +27,7 @@
 | <a name="input_parent_acct_environment"></a> [parent\_acct\_environment](#input\_parent\_acct\_environment) | Name of the environment responsible for the acct resources used, affects things like DNS zone. Useful for named dev environments | `string` | `"main"` | no |
 | <a name="input_project"></a> [project](#input\_project) | The name of the tfscaffold project | `string` | n/a | yes |
 | <a name="input_region"></a> [region](#input\_region) | The AWS Region | `string` | n/a | yes |
+| <a name="input_template_management_source_environment"></a> [template\_management\_source\_environment](#input\_template\_management\_source\_environment) | Template Management source environment | `string` | `"main"` | no |
 ## Modules
 
 | Name | Source | Version |

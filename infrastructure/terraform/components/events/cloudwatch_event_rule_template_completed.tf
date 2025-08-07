@@ -9,8 +9,7 @@ resource "aws_cloudwatch_event_rule" "template_completed" {
         "uk.nhs.notify.template-management.TemplateCompleted.v1"
       ],
       "source": [{
-        "prefix": "//notify.nhs.uk/app/"
-        "suffix": "/main"
+        "wildcard": "//notify.nhs.uk/app/*/${var.template_management_source_environment}",
       }]
     }
   })
