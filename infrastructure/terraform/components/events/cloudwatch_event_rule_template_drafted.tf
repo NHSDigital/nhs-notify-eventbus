@@ -16,7 +16,7 @@ resource "aws_cloudwatch_event_rule" "template_drafted" {
 }
 
 resource "aws_cloudwatch_event_target" "template_drafted_notify_core_templates_queue" {
-  count = length(try(event_target_arns["notify_core_templates_queue"], []))
+  count = length(try(var.event_target_arns["notify_core_templates_queue"], []))
 
   rule           = aws_cloudwatch_event_rule.template_drafted.name
   arn            = var.event_target_arns["notify_core_templates_queue"][count.index]

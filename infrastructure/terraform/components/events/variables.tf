@@ -89,8 +89,11 @@ variable "event_publisher_account_ids" {
 
 variable "event_target_arns" {
   description = "A map of event target ARNs keyed by name"
-  type        = map(string)
-  default     = {}
+  type        = object({
+    sms_nudge                   = string
+    notify_core_templates_queue = optional(list(string))
+  })
+  default     = null
 }
 
 variable "notify_core_sqs_kms_arn" {
