@@ -22,7 +22,7 @@ resource "aws_cloudwatch_event_target" "template_deleted_notify_core_templates_q
   arn            = event_target_arns["notify_core_templates_queue"][count.index]
   target_id      = "notify-core-templates-queue-${count.index}"
   event_bus_name = aws_cloudwatch_event_bus.control_plane.name
-  role_arn       = aws_iam_role.send_to_notify_core_templates_queue.arn
+  role_arn       = aws_iam_role.send_to_notify_core_templates_queue.0.arn
   input_path     = "$.detail"
 
   dead_letter_config {
