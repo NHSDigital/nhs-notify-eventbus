@@ -19,7 +19,7 @@ resource "aws_cloudwatch_event_target" "template_deleted_notify_core_templates_q
   count = length(try(event_target_arns["notify_core_templates_queue"], []))
 
   rule           = aws_cloudwatch_event_rule.template_deleted.name
-  arn            = event_target_arns["notify_core_templates_queue"][count.index]
+  arn            = var.event_target_arns["notify_core_templates_queue"][count.index]
   target_id      = "notify-core-templates-queue-${count.index}"
   event_bus_name = aws_cloudwatch_event_bus.control_plane.name
   role_arn       = aws_iam_role.send_to_notify_core_templates_queue.0.arn
