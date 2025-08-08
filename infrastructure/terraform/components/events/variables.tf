@@ -91,7 +91,7 @@ variable "event_target_arns" {
   description = "A map of event target ARNs keyed by name"
   type = object({
     sms_nudge                   = string
-    notify_core_templates_queue = optional(list(string), [])
+    notify_core_templates_queue = optional(string, null)
   })
 }
 

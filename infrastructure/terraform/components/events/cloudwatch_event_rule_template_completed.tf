@@ -16,11 +16,11 @@ resource "aws_cloudwatch_event_rule" "template_completed" {
 }
 
 resource "aws_cloudwatch_event_target" "template_completed_notify_core_templates_queue" {
-  count = length(try(var.event_target_arns["notify_core_templates_queue"], []))
+  count = var.event_target_arns["notify_core_templates_queue"] != null ? 1 : 0
 
   rule           = aws_cloudwatch_event_rule.template_completed.name
-  arn            = var.event_target_arns["notify_core_templates_queue"][count.index]
-  target_id      = "notify-core-templates-queue-${count.index}"
+  arn            = var.event_target_arns["notify_core_templates_queue"]
+  target_id      = "notify-core-templates-queue"
   event_bus_name = aws_cloudwatch_event_bus.control_plane.name
   role_arn       = aws_iam_role.send_to_notify_core_templates_queue.0.arn
   input_path     = "$.detail"

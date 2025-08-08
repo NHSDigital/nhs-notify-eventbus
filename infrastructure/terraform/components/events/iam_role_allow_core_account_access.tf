@@ -1,5 +1,5 @@
 resource "aws_iam_role" "send_to_notify_core_templates_queue" {
-  count = length(var.event_target_arns["notify_core_templates_queue"]) > 0 ? 1 : 0
+  count = var.event_target_arns["notify_core_templates_queue"] != null ? 1 : 0
 
   name = "${local.csi}-templates-queue"
 
@@ -7,7 +7,7 @@ resource "aws_iam_role" "send_to_notify_core_templates_queue" {
 }
 
 data "aws_iam_policy_document" "events_assumerole" {
-  count = length(var.event_target_arns["notify_core_templates_queue"]) > 0 ? 1 : 0
+  count = var.event_target_arns["notify_core_templates_queue"] != null ? 1 : 0
 
   statement {
     sid    = "EventsAssumeRole"
@@ -28,7 +28,7 @@ data "aws_iam_policy_document" "events_assumerole" {
 }
 
 resource "aws_iam_role_policy" "send_to_notify_core_templates_queue" {
-  count = length(var.event_target_arns["notify_core_templates_queue"]) > 0 ? 1 : 0
+  count = var.event_target_arns["notify_core_templates_queue"] != null ? 1 : 0
 
   name = "${local.csi}-templates-queue"
   role = aws_iam_role.send_to_notify_core_templates_queue.0.id
@@ -37,7 +37,7 @@ resource "aws_iam_role_policy" "send_to_notify_core_templates_queue" {
 }
 
 data "aws_iam_policy_document" "send_to_notify_core_templates_queue" {
-  count = length(var.event_target_arns["notify_core_templates_queue"]) > 0 ? 1 : 0
+  count = var.event_target_arns["notify_core_templates_queue"] != null ? 1 : 0
 
   statement {
     sid    = "AllowSQS"
