@@ -22,7 +22,7 @@ data "aws_iam_policy_document" "control_plane_ingest" {
     condition {
       test     = "ArnLike"
       variable = "aws:PrincipalArn"
-      values   = distinct(flatten([
+      values = distinct(flatten([
         formatlist("arn:aws:iam::%s:role/comms-*-api-event-publisher", var.event_publisher_account_ids),
         formatlist("arn:aws:iam::%s:role/nhs-notify-*-eventpub", var.event_publisher_account_ids)
       ]))

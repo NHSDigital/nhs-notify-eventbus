@@ -4,15 +4,15 @@ resource "aws_cloudwatch_event_rule" "sms_nudge" {
   event_bus_name = aws_cloudwatch_event_bus.data_plane.name
 
   event_pattern = jsonencode({
-    "detail": {
-      "type": [
+    "detail" : {
+      "type" : [
         "uk.nhs.notify.channels.nhsapp.SupplierStatusChange.v1"
       ],
-      "dataschemaversion": [{
-        "prefix": "1."
+      "dataschemaversion" : [{
+        "prefix" : "1."
       }],
-      "data": {
-        "supplierStatus": [
+      "data" : {
+        "supplierStatus" : [
           "unnotified"
         ]
       }
