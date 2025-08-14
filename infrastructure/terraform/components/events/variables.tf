@@ -106,3 +106,9 @@ variable "template_management_source_environment" {
   type        = string
   default     = "main"
 }
+
+variable "template_management_event_types" {
+  description = "Array of event types that the core environment want to subscribe to"
+  type        = list(string)
+  default     = []
+}
