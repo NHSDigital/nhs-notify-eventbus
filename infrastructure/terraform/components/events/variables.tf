@@ -104,6 +104,7 @@ variable "notify_core_sqs_kms_arn" {
 variable "template_management_source_environment" {
   description = "Template Management source environment"
   type        = string
+  default     = "main"
 }
 
 variable "template_management_event_types" {
