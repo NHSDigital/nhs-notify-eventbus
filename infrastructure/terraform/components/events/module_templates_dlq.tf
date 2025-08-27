@@ -1,4 +1,4 @@
-module "templates_dlq" {
+module "notify_core_dlq" {
   source = "git::https://github.com/NHSDigital/nhs-notify-shared-modules.git//infrastructure/modules/sqs?ref=v2.0.8"
 
   aws_account_id  = var.aws_account_id
@@ -6,13 +6,13 @@ module "templates_dlq" {
   environment     = var.environment
   project         = var.project
   region          = var.region
-  name            = "templates-dlq"
+  name            = "notify-core-dlq"
   sqs_kms_key_arn = module.kms.key_arn
 
-  sqs_policy_overload = data.aws_iam_policy_document.templates_dlq_allow_eventbridge.json
+  sqs_policy_overload = data.aws_iam_policy_document.notify_core_dlq_allow_eventbridge.json
 }
 
-data "aws_iam_policy_document" "templates_dlq_allow_eventbridge" {
+data "aws_iam_policy_document" "notify_core_dlq_allow_eventbridge" {
   statement {
     effect = "Allow"
     principals {
@@ -21,6 +21,6 @@ data "aws_iam_policy_document" "templates_dlq_allow_eventbridge" {
     }
 
     actions   = ["sqs:SendMessage"]
-    resources = [module.templates_dlq.sqs_queue_arn]
+    resources = [module.notify_core_dlq.sqs_queue_arn]
   }
 }

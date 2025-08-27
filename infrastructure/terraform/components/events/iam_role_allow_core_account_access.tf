@@ -1,13 +1,13 @@
-resource "aws_iam_role" "send_to_notify_core_templates_queue" {
-  count = var.event_target_arns["notify_core_templates_queue"] != null ? 1 : 0
+resource "aws_iam_role" "send_to_notify_core" {
+  count = var.event_target_arns["notify_core_sns_topic"] != null ? 1 : 0
 
-  name = "${local.csi}-templates-queue"
+  name = "${local.csi}-send-to-core"
 
   assume_role_policy = data.aws_iam_policy_document.events_assumerole.0.json
 }
 
 data "aws_iam_policy_document" "events_assumerole" {
-  count = var.event_target_arns["notify_core_templates_queue"] != null ? 1 : 0
+  count = var.event_target_arns["notify_core_sns_topic"] != null ? 1 : 0
 
   statement {
     sid    = "EventsAssumeRole"
@@ -27,17 +27,30 @@ data "aws_iam_policy_document" "events_assumerole" {
   }
 }
 
-resource "aws_iam_role_policy" "send_to_notify_core_templates_queue" {
-  count = var.event_target_arns["notify_core_templates_queue"] != null ? 1 : 0
+resource "aws_iam_role_policy" "send_to_notify_core" {
+  count = var.event_target_arns["notify_core_sns_topic"] != null ? 1 : 0
 
-  name = "${local.csi}-templates-queue"
-  role = aws_iam_role.send_to_notify_core_templates_queue.0.id
+  name = "${local.csi}-send-to-core"
+  role = aws_iam_role.send_to_notify_core.0.id
 
-  policy = data.aws_iam_policy_document.send_to_notify_core_templates_queue.0.json
+  policy = data.aws_iam_policy_document.send_to_notify_core.0.json
 }
 
-data "aws_iam_policy_document" "send_to_notify_core_templates_queue" {
-  count = var.event_target_arns["notify_core_templates_queue"] != null ? 1 : 0
+data "aws_iam_policy_document" "send_to_notify_core" {
+  count = var.event_target_arns["notify_core_sns_topic"] != null ? 1 : 0
+
+  statement {
+    sid    = "AllowSNS"
+    effect = "Allow"
+
+    actions = [
+      "sns:Publish",
+    ]
+
+    resources = flatten([
+      var.event_target_arns["notify_core_sns_topic"]
+    ])
+  }
 
   statement {
     sid    = "AllowSQS"
@@ -48,8 +61,7 @@ data "aws_iam_policy_document" "send_to_notify_core_templates_queue" {
     ]
 
     resources = flatten([
-      var.event_target_arns["notify_core_templates_queue"],
-      module.templates_dlq.sqs_queue_arn
+      module.notify_core_dlq.sqs_queue_arn
     ])
   }
 
@@ -63,6 +75,6 @@ data "aws_iam_policy_document" "send_to_notify_core_templates_queue" {
       "kms:GenerateDataKey*"
     ]
 
-    resources = [module.kms.key_arn, var.notify_core_sqs_kms_arn]
+    resources = [module.kms.key_arn, var.notify_core_sns_kms_arn]
   }
 }
