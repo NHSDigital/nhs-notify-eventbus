@@ -90,19 +90,13 @@ variable "event_publisher_account_ids" {
 variable "event_target_arns" {
   description = "A map of event target ARNs keyed by name"
   type = object({
-    sms_nudge                   = string
-    notify_core_templates_queue = optional(string, null)
+    sms_nudge             = string
+    notify_core_sns_topic = optional(string, null)
   })
 }
 
-variable "notify_core_sqs_kms_arn" {
-  description = "Notify Core SQS KMS ARN"
+variable "notify_core_sns_kms_arn" {
+  description = "Notify Core SNS KMS ARN"
   type        = string
   default     = null
-}
-
-variable "template_management_source_environment" {
-  description = "Template Management source environment"
-  type        = string
-  default     = "main"
 }
