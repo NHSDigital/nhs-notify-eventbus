@@ -90,9 +90,27 @@ variable "event_publisher_account_ids" {
 variable "event_target_arns" {
   description = "A map of event target ARNs keyed by name"
   type = object({
-    sms_nudge             = string
-    notify_core_sns_topic = optional(string, null)
+    sms_nudge                               = string
+    notify_core_sns_topic                   = optional(string, null)
   })
+}
+
+variable "template_control_cross_account_target" {
+  description = "Object containing environment and Account ID of the Control Plane Event Bus to send Template Events TO"
+  type = object({
+    environment = optional(string, null)
+    account_id  = optional(string, null)
+  })
+  default = null
+}
+
+variable "template_control_cross_account_source" {
+  description = "Object containing environment and Account ID of the Control Plane Event Bus to allow Template Events FROM"
+  type = object({
+    environment = optional(string, null)
+    account_id  = optional(string, null)
+  })
+  default = null
 }
 
 variable "notify_core_sns_kms_arn" {
