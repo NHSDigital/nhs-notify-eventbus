@@ -6,9 +6,9 @@ resource "aws_cloudwatch_event_rule" "template_events" {
   event_pattern = jsonencode({
     "detail" : {
       "type" : [
-        { "wildcard": "uk.nhs.notify.template-management.TemplateCompleted.*" },
-        { "wildcard": "uk.nhs.notify.template-management.TemplateDrafted.*" },
-        { "wildcard": "uk.nhs.notify.template-management.TemplateDeleted.*" }
+        { "wildcard" : "uk.nhs.notify.template-management.TemplateCompleted.*" },
+        { "wildcard" : "uk.nhs.notify.template-management.TemplateDrafted.*" },
+        { "wildcard" : "uk.nhs.notify.template-management.TemplateDeleted.*" }
       ]
     }
   })

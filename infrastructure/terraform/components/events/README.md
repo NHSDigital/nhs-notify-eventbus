@@ -31,8 +31,8 @@
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_kms"></a> [kms](#module\_kms) | git::https://github.com/NHSDigital/nhs-notify-shared-modules.git//infrastructure/modules/kms | v1.0.8 |
-| <a name="module_notify_core_dlq"></a> [notify\_core\_dlq](#module\_notify\_core\_dlq) | git::https://github.com/NHSDigital/nhs-notify-shared-modules.git//infrastructure/modules/sqs | v2.0.8 |
+| <a name="module_kms"></a> [kms](#module\_kms) | https://github.com/NHSDigital/nhs-notify-shared-modules/releases/download/v2.0.20/terraform-kms.zip | n/a |
+| <a name="module_notify_core_dlq"></a> [notify\_core\_dlq](#module\_notify\_core\_dlq) | https://github.com/NHSDigital/nhs-notify-shared-modules/releases/download/v2.0.20/terraform-sqs.zip | n/a |
 ## Outputs
 
 | Name | Description |
