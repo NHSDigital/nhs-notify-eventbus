@@ -35,6 +35,7 @@
 |------|--------|---------|
 | <a name="module_kms"></a> [kms](#module\_kms) | https://github.com/NHSDigital/nhs-notify-shared-modules/releases/download/v2.0.20/terraform-kms.zip | n/a |
 | <a name="module_notify_core_dlq"></a> [notify\_core\_dlq](#module\_notify\_core\_dlq) | https://github.com/NHSDigital/nhs-notify-shared-modules/releases/download/v2.0.20/terraform-sqs.zip | n/a |
+| <a name="module_template_control_cross_account_dlq"></a> [template\_control\_cross\_account\_dlq](#module\_template\_control\_cross\_account\_dlq) | https://github.com/NHSDigital/nhs-notify-shared-modules/releases/download/v2.0.20/terraform-sqs.zip | n/a |
 ## Outputs
 
 | Name | Description |
