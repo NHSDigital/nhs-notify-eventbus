@@ -113,7 +113,7 @@ variable "template_control_cross_account_source" {
   default = null
 }
 
-variable "supplier_data_cross_account_target" {
+variable "supplier_api_data_cross_account_target" {
   description = "Object containing environment and Account ID of the Supplier API Account to send Supplier Events"
   type = object({
     environment = optional(string, null)
