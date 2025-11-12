@@ -113,6 +113,15 @@ variable "template_control_cross_account_source" {
   default = null
 }
 
+variable "supplier_data_cross_account_target" {
+  description = "Object containing environment and Account ID of the Supplier API Account to send Supplier Events"
+  type = object({
+    environment = optional(string, null)
+    account_id  = optional(string, null)
+  })
+  default = null
+}
+
 variable "notify_core_sns_kms_arn" {
   description = "Notify Core SNS KMS ARN"
   type        = string
