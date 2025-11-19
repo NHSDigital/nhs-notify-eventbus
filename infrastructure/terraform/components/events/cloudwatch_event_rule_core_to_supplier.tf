@@ -18,7 +18,7 @@ resource "aws_cloudwatch_event_target" "core_to_supplier_api_events" {
   count = ( var.supplier_api_data_cross_account_target != null ) ? 1 : 0
 
   rule           = aws_cloudwatch_event_rule.core_to_supplier_api[0].name
-  arn            = local.supplier_api_sns_topic
+  arn            = var.event_target_arns["supplier_api_sns_topic"]
   target_id      = "supplier-api-data-incoming"
   event_bus_name = aws_cloudwatch_event_bus.data_plane.name
   role_arn       = aws_iam_role.core_to_supplier_api_events[0].arn
@@ -58,7 +58,7 @@ resource "aws_iam_policy" "core_to_supplier_api_events" {
     Statement = [{
       Effect   = "Allow",
       Action   = "sns:Publish",
-      Resource = local.supplier_api_sns_topic
+      Resource = var.event_target_arns["supplier_api_sns_topic"]
     },
     {
       Action = [
