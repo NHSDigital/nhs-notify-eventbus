@@ -67,7 +67,7 @@ data "aws_iam_policy_document" "kms" {
         variable = "aws:PrincipalArn"
         values = distinct(flatten([
           formatlist("arn:aws:iam::%s:role/comms-*-api-event-publisher", var.event_publisher_account_ids),
-          formatlist("arn:aws:iam::%s:role/nhs-notify-*-eventpub", var.event_publisher_account_ids),
+          formatlist("arn:aws:iam::%s:role/nhs-*-eventpub", var.event_publisher_account_ids),
           (
             var.template_control_cross_account_source != null
           ) ? [

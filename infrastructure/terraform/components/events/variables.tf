@@ -92,6 +92,7 @@ variable "event_target_arns" {
   type = object({
     sms_nudge                               = string
     notify_core_sns_topic                   = optional(string, null)
+    supplier_api_sns_topic                  = optional(string, null)
   })
 }
 
@@ -106,6 +107,15 @@ variable "template_control_cross_account_target" {
 
 variable "template_control_cross_account_source" {
   description = "Object containing environment and Account ID of the Control Plane Event Bus to allow Template Events FROM"
+  type = object({
+    environment = optional(string, null)
+    account_id  = optional(string, null)
+  })
+  default = null
+}
+
+variable "supplier_api_data_cross_account_target" {
+  description = "Object containing environment and Account ID of the Supplier API Account to send Supplier Events"
   type = object({
     environment = optional(string, null)
     account_id  = optional(string, null)

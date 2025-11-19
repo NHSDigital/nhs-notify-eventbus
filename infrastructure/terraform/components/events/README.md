@@ -27,12 +27,14 @@
 | <a name="input_parent_acct_environment"></a> [parent\_acct\_environment](#input\_parent\_acct\_environment) | Name of the environment responsible for the acct resources used, affects things like DNS zone. Useful for named dev environments | `string` | `"main"` | no |
 | <a name="input_project"></a> [project](#input\_project) | The name of the tfscaffold project | `string` | n/a | yes |
 | <a name="input_region"></a> [region](#input\_region) | The AWS Region | `string` | n/a | yes |
+| <a name="input_supplier_api_data_cross_account_target"></a> [supplier\_api\_data\_cross\_account\_target](#input\_supplier\_api\_data\_cross\_account\_target) | Object containing environment and Account ID of the Supplier API Account to send Supplier Events | <pre>object({<br/>    environment = optional(string, null)<br/>    account_id  = optional(string, null)<br/>  })</pre> | `null` | no |
 | <a name="input_template_control_cross_account_source"></a> [template\_control\_cross\_account\_source](#input\_template\_control\_cross\_account\_source) | Object containing environment and Account ID of the Control Plane Event Bus to allow Template Events FROM | <pre>object({<br/>    environment = optional(string, null)<br/>    account_id  = optional(string, null)<br/>  })</pre> | `null` | no |
 | <a name="input_template_control_cross_account_target"></a> [template\_control\_cross\_account\_target](#input\_template\_control\_cross\_account\_target) | Object containing environment and Account ID of the Control Plane Event Bus to send Template Events TO | <pre>object({<br/>    environment = optional(string, null)<br/>    account_id  = optional(string, null)<br/>  })</pre> | `null` | no |
 ## Modules
 
 | Name | Source | Version |
 |------|--------|---------|
+| <a name="module_core_to_supplier_api_events_dlq"></a> [core\_to\_supplier\_api\_events\_dlq](#module\_core\_to\_supplier\_api\_events\_dlq) | https://github.com/NHSDigital/nhs-notify-shared-modules/releases/download/v2.0.20/terraform-sqs.zip | n/a |
 | <a name="module_kms"></a> [kms](#module\_kms) | https://github.com/NHSDigital/nhs-notify-shared-modules/releases/download/v2.0.20/terraform-kms.zip | n/a |
 | <a name="module_notify_core_dlq"></a> [notify\_core\_dlq](#module\_notify\_core\_dlq) | https://github.com/NHSDigital/nhs-notify-shared-modules/releases/download/v2.0.20/terraform-sqs.zip | n/a |
 | <a name="module_template_control_cross_account_dlq"></a> [template\_control\_cross\_account\_dlq](#module\_template\_control\_cross\_account\_dlq) | https://github.com/NHSDigital/nhs-notify-shared-modules/releases/download/v2.0.20/terraform-sqs.zip | n/a |
