@@ -1,6 +1,6 @@
 resource "aws_cloudwatch_event_rule" "template_events" {
   name           = "${local.csi}-template-events"
-  description    = "Event rule for inbound TemplateCompleted, TemplateDeleted and TemplateDrafted events"
+  description    = "Event rule for inbound TemplateCompleted, TemplateDeleted, TemplateDrafted, RoutingConfigCompleted, RoutingConfigDrafted and RoutingConfigDeleted events"
   event_bus_name = aws_cloudwatch_event_bus.control_plane.name
 
   event_pattern = jsonencode({
@@ -8,7 +8,10 @@ resource "aws_cloudwatch_event_rule" "template_events" {
       "type" : [
         { "wildcard" : "uk.nhs.notify.template-management.TemplateCompleted.*" },
         { "wildcard" : "uk.nhs.notify.template-management.TemplateDrafted.*" },
-        { "wildcard" : "uk.nhs.notify.template-management.TemplateDeleted.*" }
+        { "wildcard" : "uk.nhs.notify.template-management.TemplateDeleted.*" },
+        { "wildcard" : "uk.nhs.notify.template-management.RoutingConfigCompleted.*" },
+        { "wildcard" : "uk.nhs.notify.template-management.RoutingConfigDrafted.*" },
+        { "wildcard" : "uk.nhs.notify.template-management.RoutingConfigDeleted.*" }
       ]
     }
   })
