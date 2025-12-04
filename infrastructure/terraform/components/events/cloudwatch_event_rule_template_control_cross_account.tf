@@ -10,7 +10,10 @@ resource "aws_cloudwatch_event_rule" "template_control_cross_account" {
       "type" : [
         { "wildcard": "uk.nhs.notify.template-management.TemplateCompleted.*" },
         { "wildcard": "uk.nhs.notify.template-management.TemplateDrafted.*" },
-        { "wildcard": "uk.nhs.notify.template-management.TemplateDeleted.*" }
+        { "wildcard": "uk.nhs.notify.template-management.TemplateDeleted.*" },
+        { "wildcard" : "uk.nhs.notify.template-management.RoutingConfigCompleted.*" },
+        { "wildcard" : "uk.nhs.notify.template-management.RoutingConfigDrafted.*" },
+        { "wildcard" : "uk.nhs.notify.template-management.RoutingConfigDeleted.*" }
       ]
       "source" : [
         "//notify.nhs.uk/app/nhs-notify-template-management-${local.group_suffix}/${var.environment}"
