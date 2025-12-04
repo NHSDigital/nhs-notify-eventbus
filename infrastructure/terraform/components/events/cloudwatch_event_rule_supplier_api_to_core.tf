@@ -9,17 +9,17 @@ resource "aws_cloudwatch_event_rule" "supplier_api_to_core" {
         {"prefix": "letter-origin/letter-rendering/"}
       ],
       "type" : [
-        { prefix = "uk.nhs.notify.supplier-api.letter.ACCEPTED" },
-        { prefix = "uk.nhs.notify.supplier-api.letter.CANCELLED" },
-        { prefix = "uk.nhs.notify.supplier-api.letter.DELIVERED" },
-        { prefix = "uk.nhs.notify.supplier-api.letter.DISPATCHED" },
-        { prefix = "uk.nhs.notify.supplier-api.letter.ENCLOSED" },
-        { prefix = "uk.nhs.notify.supplier-api.letter.FAILED" },
-        { prefix = "uk.nhs.notify.supplier-api.letter.FORWARDED" },
-        { prefix = "uk.nhs.notify.supplier-api.letter.PENDING" },
-        { prefix = "uk.nhs.notify.supplier-api.letter.PRINTED" },
-        { prefix = "uk.nhs.notify.supplier-api.letter.REJECTED" },
-        { prefix = "uk.nhs.notify.supplier-api.letter.RETURNED" }
+        { prefix = "uk.nhs.notify.supplier-api.letter.accepted" },
+        { prefix = "uk.nhs.notify.supplier-api.letter.cancelled" },
+        { prefix = "uk.nhs.notify.supplier-api.letter.delivered" },
+        { prefix = "uk.nhs.notify.supplier-api.letter.dispatched" },
+        { prefix = "uk.nhs.notify.supplier-api.letter.enclosed" },
+        { prefix = "uk.nhs.notify.supplier-api.letter.failed" },
+        { prefix = "uk.nhs.notify.supplier-api.letter.forwarded" },
+        { prefix = "uk.nhs.notify.supplier-api.letter.pending" },
+        { prefix = "uk.nhs.notify.supplier-api.letter.printed" },
+        { prefix = "uk.nhs.notify.supplier-api.letter.rejected" },
+        { prefix = "uk.nhs.notify.supplier-api.letter.returned" }
       ]
     }
   })
