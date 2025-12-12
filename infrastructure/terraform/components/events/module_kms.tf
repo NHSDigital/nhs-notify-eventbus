@@ -1,5 +1,10 @@
 module "kms" {
-  source = "git::https://github.com/NHSDigital/nhs-notify-shared-modules.git//infrastructure/modules/kms?ref=v1.0.8"
+  source = "https://github.com/NHSDigital/nhs-notify-shared-modules/releases/download/v2.0.20/terraform-kms.zip"
+
+  providers = {
+    aws           = aws
+    aws.us-east-1 = aws.us-east-1
+  }
 
   aws_account_id = var.aws_account_id
   component      = var.component
@@ -45,20 +50,32 @@ data "aws_iam_policy_document" "kms" {
   }
 
   dynamic "statement" {
-    for_each = length(var.delegated_event_publishing_roles) > 0 ? [1]:[]
+    for_each = length(var.event_publisher_account_ids) > 0 ? [1] : []
     content {
       effect = "Allow"
 
-      actions = [ "kms:GenerateDataKey" ]
-
+      actions = ["kms:GenerateDataKey"]
       principals {
-        type = "AWS"
-        identifiers = var.delegated_event_publishing_roles
+        type        = "AWS"
+        identifiers = distinct(concat(
+          formatlist("arn:aws:iam::%s:root", var.event_publisher_account_ids),
+          var.template_control_cross_account_source != null ? ["arn:aws:iam::${var.template_control_cross_account_source.account_id}:root"] : []
+        ))
       }
-
-      resources = [
-        "*"
-      ]
+      condition {
+        test     = "ArnLike"
+        variable = "aws:PrincipalArn"
+        values = distinct(flatten([
+          formatlist("arn:aws:iam::%s:role/comms-*-api-event-publisher", var.event_publisher_account_ids),
+          formatlist("arn:aws:iam::%s:role/nhs-*-eventpub", var.event_publisher_account_ids),
+          (
+            var.template_control_cross_account_source != null
+          ) ? [
+            "arn:aws:iam::${var.template_control_cross_account_source.account_id}:role/nhs-${var.template_control_cross_account_source.environment}-events-template-control-cross-account"
+          ] : []
+        ]))
+      }
+      resources = ["*"]
     }
   }
 }

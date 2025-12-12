@@ -81,8 +81,50 @@ variable "force_lambda_code_deploy" {
   default     = false
 }
 
-variable "delegated_event_publishing_roles" {
-  type        = list
-  description = "An object representing delegation of event publishers"
+variable "event_publisher_account_ids" {
+  type        = list(any)
+  description = "An object representing account id's of event publishers"
   default     = []
+}
+
+variable "event_target_arns" {
+  description = "A map of event target ARNs keyed by name"
+  type = object({
+    sms_nudge                               = string
+    notify_core_sns_topic                   = optional(string, null)
+    supplier_api_sns_topic                  = optional(string, null)
+  })
+}
+
+variable "template_control_cross_account_target" {
+  description = "Object containing environment and Account ID of the Control Plane Event Bus to send Template Events TO"
+  type = object({
+    environment = optional(string, null)
+    account_id  = optional(string, null)
+  })
+  default = null
+}
+
+variable "template_control_cross_account_source" {
+  description = "Object containing environment and Account ID of the Control Plane Event Bus to allow Template Events FROM"
+  type = object({
+    environment = optional(string, null)
+    account_id  = optional(string, null)
+  })
+  default = null
+}
+
+variable "supplier_api_data_cross_account_target" {
+  description = "Object containing environment and Account ID of the Supplier API Account to send Supplier Events"
+  type = object({
+    environment = optional(string, null)
+    account_id  = optional(string, null)
+  })
+  default = null
+}
+
+variable "notify_core_sns_kms_arn" {
+  description = "Notify Core SNS KMS ARN"
+  type        = string
+  default     = null
 }

@@ -7,10 +7,11 @@ Cyber
 Dependabot
 draw.io
 drawio
+[Ee]nv
 endcapture
 endfor
 endraw
-[Ee]nv
+Git[Hh]ub
 GitHub
 Gitleaks
 Grype

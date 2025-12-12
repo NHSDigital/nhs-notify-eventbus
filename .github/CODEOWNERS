@@ -1,11 +1,18 @@
 # NHS Notify Code Owners
 
 # Notify default owners
-* @rossbugginsnhs @m-houston @aidenvaines-bjss @timireland
+*                           @NHSDigital/nhs-notify-eventbus
 
-# Codeowners must be final check
-/.github/CODEOWNERS @NHSDigital/nhs-notify-code-owners
-/CODEOWNERS @NHSDigital/nhs-notify-code-owners
+/.github/                   @NHSDigital/nhs-notify-eventbus-admins
+*.code-workspace            @NHSDigital/nhs-notify-eventbus-admins
+/infrastructure/terraform/  @NHSDigital/nhs-notify-platform
+
+# Root level AGENTS.md owned by platform.
+AGENTS.md                   @NHSDigital/nhs-notify-platform
+
+# Default protection for codeowners, must be last in file.
+/.github/CODEOWNERS         @NHSDigital/nhs-notify-code-owners
+/CODEOWNERS                 @NHSDigital/nhs-notify-code-owners
 
 
 # Each NHS Notify repository should have clear code owners set.
