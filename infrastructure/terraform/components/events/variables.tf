@@ -94,6 +94,7 @@ variable "event_target_arns" {
     notify_core_sns_topic                   = optional(string, null)
     supplier_api_sns_topic                  = optional(string, null)
     app_response                            = optional(string, null)
+    client_callbacks                        = optional(string, null)
   })
 }
 
