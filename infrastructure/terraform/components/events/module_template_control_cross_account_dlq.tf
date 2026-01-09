@@ -1,5 +1,5 @@
 module "template_control_cross_account_dlq" {
-  count = ( var.template_control_cross_account_target != null ) ? 1 : 0
+  count  = (var.template_control_cross_account_target != null) ? 1 : 0
   source = "https://github.com/NHSDigital/nhs-notify-shared-modules/releases/download/v2.0.20/terraform-sqs.zip"
 
   aws_account_id  = var.aws_account_id
@@ -14,7 +14,7 @@ module "template_control_cross_account_dlq" {
 }
 
 data "aws_iam_policy_document" "template_control_cross_account_dlq_allow_eventbridge" {
-  count = ( var.template_control_cross_account_target != null ) ? 1 : 0
+  count = (var.template_control_cross_account_target != null) ? 1 : 0
 
   statement {
     effect = "Allow"

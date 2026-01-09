@@ -1,5 +1,5 @@
 resource "aws_cloudwatch_event_rule" "core_to_supplier_api" {
-  count = ( var.supplier_api_data_cross_account_target != null ) ? 1 : 0
+  count = (var.supplier_api_data_cross_account_target != null) ? 1 : 0
 
   name           = "${local.csi}-core-to-supplier-api"
   description    = "Supplier API data events to Incoming Rule"
@@ -8,14 +8,14 @@ resource "aws_cloudwatch_event_rule" "core_to_supplier_api" {
   event_pattern = jsonencode({
     "detail" : {
       "type" : [
-        {"prefix": "uk.nhs.notify.letter-rendering.letter-request.prepared"}
+        { "prefix" : "uk.nhs.notify.letter-rendering.letter-request.prepared" }
       ],
     }
   })
 }
 
 resource "aws_cloudwatch_event_target" "core_to_supplier_api_events" {
-  count = ( var.supplier_api_data_cross_account_target != null ) ? 1 : 0
+  count = (var.supplier_api_data_cross_account_target != null) ? 1 : 0
 
   rule           = aws_cloudwatch_event_rule.core_to_supplier_api[0].name
   arn            = var.event_target_arns["supplier_api_sns_topic"]
@@ -28,10 +28,10 @@ resource "aws_cloudwatch_event_target" "core_to_supplier_api_events" {
 }
 
 data "aws_iam_policy_document" "core_to_supplier_api_events" {
-  count = ( var.supplier_api_data_cross_account_target != null ) ? 1 : 0
+  count = (var.supplier_api_data_cross_account_target != null) ? 1 : 0
 
   statement {
-    effect = "Allow"
+    effect  = "Allow"
     actions = ["sts:AssumeRole"]
     principals {
       type        = "Service"
@@ -41,7 +41,7 @@ data "aws_iam_policy_document" "core_to_supplier_api_events" {
 }
 
 resource "aws_iam_role" "core_to_supplier_api_events" {
-  count = ( var.supplier_api_data_cross_account_target != null ) ? 1 : 0
+  count = (var.supplier_api_data_cross_account_target != null) ? 1 : 0
 
   name = "${local.csi}-core-to-supplier-api-events"
 
@@ -49,7 +49,7 @@ resource "aws_iam_role" "core_to_supplier_api_events" {
 }
 
 resource "aws_iam_policy" "core_to_supplier_api_events" {
-  count = ( var.supplier_api_data_cross_account_target != null ) ? 1 : 0
+  count = (var.supplier_api_data_cross_account_target != null) ? 1 : 0
 
   name = "${local.csi}-core-to-supplier-events"
 
@@ -59,27 +59,27 @@ resource "aws_iam_policy" "core_to_supplier_api_events" {
       Effect   = "Allow",
       Action   = "sns:Publish",
       Resource = var.event_target_arns["supplier_api_sns_topic"]
-    },
-    {
-      Action = [
-        "kms:GenerateDataKey",
-        "kms:Encrypt",
-        "kms:DescribeKey",
-        "kms:Decrypt"
-      ],
-      Effect = "Allow",
-      Resource = "arn:aws:kms:${var.region}:${var.supplier_api_data_cross_account_target.account_id}:key/*"
-      Condition = {
-        "ForAnyValue:StringEquals" = {
-          "kms:ResourceAliases" = "alias/nhs-${var.supplier_api_data_cross_account_target.environment}-supapi"
+      },
+      {
+        Action = [
+          "kms:GenerateDataKey",
+          "kms:Encrypt",
+          "kms:DescribeKey",
+          "kms:Decrypt"
+        ],
+        Effect   = "Allow",
+        Resource = "arn:aws:kms:${var.region}:${var.supplier_api_data_cross_account_target.account_id}:key/*"
+        Condition = {
+          "ForAnyValue:StringEquals" = {
+            "kms:ResourceAliases" = "alias/nhs-${var.supplier_api_data_cross_account_target.environment}-supapi"
+          }
         }
-      }
     }]
   })
 }
 
 resource "aws_iam_role_policy_attachment" "core_to_supplier_api_events" {
-  count = ( var.supplier_api_data_cross_account_target != null ) ? 1 : 0
+  count = (var.supplier_api_data_cross_account_target != null) ? 1 : 0
 
   role       = aws_iam_role.core_to_supplier_api_events[0].name
   policy_arn = aws_iam_policy.core_to_supplier_api_events[0].arn

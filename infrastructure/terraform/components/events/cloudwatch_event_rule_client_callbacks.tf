@@ -6,7 +6,7 @@ resource "aws_cloudwatch_event_rule" "client_callbacks" {
   event_pattern = jsonencode({
     "detail" : {
       "type" : [
-        { "wildcard": "uk.nhs.notify.client-callbacks.*" },
+        { "wildcard" : "uk.nhs.notify.client-callbacks.*" },
       ],
       "dataschemaversion" : [{
         "prefix" : "1."

@@ -1,5 +1,5 @@
 resource "aws_cloudwatch_event_rule" "template_control_cross_account" {
-  count = ( var.template_control_cross_account_target != null ) ? 1 : 0
+  count = (var.template_control_cross_account_target != null) ? 1 : 0
 
   name           = "${local.csi}-template-control-cross-account"
   description    = "Template Control events to Cross Account Eventbus"
@@ -8,9 +8,9 @@ resource "aws_cloudwatch_event_rule" "template_control_cross_account" {
   event_pattern = jsonencode({
     "detail" : {
       "type" : [
-        { "wildcard": "uk.nhs.notify.template-management.TemplateCompleted.*" },
-        { "wildcard": "uk.nhs.notify.template-management.TemplateDrafted.*" },
-        { "wildcard": "uk.nhs.notify.template-management.TemplateDeleted.*" },
+        { "wildcard" : "uk.nhs.notify.template-management.TemplateCompleted.*" },
+        { "wildcard" : "uk.nhs.notify.template-management.TemplateDrafted.*" },
+        { "wildcard" : "uk.nhs.notify.template-management.TemplateDeleted.*" },
         { "wildcard" : "uk.nhs.notify.template-management.RoutingConfigCompleted.*" },
         { "wildcard" : "uk.nhs.notify.template-management.RoutingConfigDrafted.*" },
         { "wildcard" : "uk.nhs.notify.template-management.RoutingConfigDeleted.*" }
@@ -23,7 +23,7 @@ resource "aws_cloudwatch_event_rule" "template_control_cross_account" {
 }
 
 resource "aws_cloudwatch_event_target" "template_control_cross_account" {
-  count = ( var.template_control_cross_account_target != null ) ? 1 : 0
+  count = (var.template_control_cross_account_target != null) ? 1 : 0
 
   rule           = aws_cloudwatch_event_rule.template_control_cross_account[0].name
   arn            = "arn:aws:events:eu-west-2:${var.template_control_cross_account_target.account_id}:event-bus/nhs-${var.template_control_cross_account_target.environment}-events-control-plane"
@@ -36,10 +36,10 @@ resource "aws_cloudwatch_event_target" "template_control_cross_account" {
 }
 
 data "aws_iam_policy_document" "template_control_cross_account" {
-  count = ( var.template_control_cross_account_target != null ) ? 1 : 0
+  count = (var.template_control_cross_account_target != null) ? 1 : 0
 
   statement {
-    effect = "Allow"
+    effect  = "Allow"
     actions = ["sts:AssumeRole"]
     principals {
       type        = "Service"
@@ -49,7 +49,7 @@ data "aws_iam_policy_document" "template_control_cross_account" {
 }
 
 resource "aws_iam_role" "template_control_cross_account" {
-  count = ( var.template_control_cross_account_target != null ) ? 1 : 0
+  count = (var.template_control_cross_account_target != null) ? 1 : 0
 
   name = "${local.csi}-template-control-cross-account"
 
@@ -57,7 +57,7 @@ resource "aws_iam_role" "template_control_cross_account" {
 }
 
 resource "aws_iam_policy" "template_control_cross_account" {
-  count = ( var.template_control_cross_account_target != null ) ? 1 : 0
+  count = (var.template_control_cross_account_target != null) ? 1 : 0
 
   name = "${local.csi}-template-control-cross-account"
 
@@ -72,7 +72,7 @@ resource "aws_iam_policy" "template_control_cross_account" {
 }
 
 resource "aws_iam_role_policy_attachment" "template_control_cross_account" {
-  count = ( var.template_control_cross_account_target != null ) ? 1 : 0
+  count = (var.template_control_cross_account_target != null) ? 1 : 0
 
   role       = aws_iam_role.template_control_cross_account[0].name
   policy_arn = aws_iam_policy.template_control_cross_account[0].arn
