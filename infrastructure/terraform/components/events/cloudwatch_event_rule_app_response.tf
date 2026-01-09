@@ -3,6 +3,7 @@ resource "aws_cloudwatch_event_rule" "app_response_request" {
   description    = "App Response event rule for inbound request events"
   event_bus_name = aws_cloudwatch_event_bus.data_plane.name
 
+  ## The below is a dummy pattern. Schema to be defined.
   event_pattern = jsonencode({
     "detail" : {
       "type" : [
