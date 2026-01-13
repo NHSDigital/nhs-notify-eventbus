@@ -1,6 +1,6 @@
-resource "aws_cloudwatch_event_rule" "app_response_request" {
-  name           = "${local.csi}-app-response-request"
-  description    = "App Response event rule for inbound request events"
+resource "aws_cloudwatch_event_rule" "app_response" {
+  name           = "${local.csi}-app-response"
+  description    = "App Response event rule for inbound events"
   event_bus_name = aws_cloudwatch_event_bus.data_plane.name
 
   ## The below is a dummy pattern. Schema to be defined.
@@ -16,9 +16,9 @@ resource "aws_cloudwatch_event_rule" "app_response_request" {
   })
 }
 
-resource "aws_cloudwatch_event_target" "app_response_request" {
-  rule           = aws_cloudwatch_event_rule.app_response_request.name
-  arn            = var.event_target_arns["app_response_request"]
-  target_id      = "app-response-request-events-target"
+resource "aws_cloudwatch_event_target" "app_response" {
+  rule           = aws_cloudwatch_event_rule.app_response.name
+  arn            = var.event_target_arns["app_response"]
+  target_id      = "app-response-events-target"
   event_bus_name = aws_cloudwatch_event_bus.data_plane.name
 }
