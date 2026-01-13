@@ -7,7 +7,7 @@ resource "aws_cloudwatch_event_rule" "app_response_request" {
   event_pattern = jsonencode({
     "detail" : {
       "type" : [
-        "uk.nhs.notify.app-response.*"
+        { "wildcard" : "uk.nhs.notify.app-response.*" },
       ],
       "dataschemaversion" : [{
         "prefix" : "1."
