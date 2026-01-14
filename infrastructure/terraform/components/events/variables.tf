@@ -130,3 +130,9 @@ variable "notify_core_sns_kms_arn" {
   type        = string
   default     = null
 }
+
+variable "app_response_kms_key_arn" {
+  description = "App Response KMS ARN"
+  type        = string
+  default     = null
+}
