@@ -41,32 +41,32 @@ resource "aws_iam_role" "app_response" {
   assume_role_policy = data.aws_iam_policy_document.app_response_assume_role.json
 }
 
-data "aws_iam_policy_document" "app_response_policy" {
-  statement {
-    effect    = "Allow"
-    actions   = ["sqs:SendMessage"]
-    resources = [
-      "arn:aws:sqs:eu-west-2:${var.supplier_api_data_cross_account_target.account_id}:nhs-${var.supplier_api_data_cross_account_target.environment}-response-request-inbound-event-queue",
-    ]
-  }
-  statement {
-    sid    = "AllowKmsUsage"
-    effect = "Allow"
-
-    actions = [
-      "kms:Decrypt",
-      "kms:Encrypt",
-      "kms:GenerateDataKey*"
-    ]
-
-    resources = [module.kms.key_arn, var.app_response_kms_key_arn]
-  }
-}
-
 resource "aws_iam_policy" "app_response" {
   name = "${local.csi}-app-response"
 
-  policy = data.aws_iam_policy_document.app_response_policy.json
+  policy = jsonencode({
+    Version = "2012-10-17",
+    Statement = [{
+      Effect   = "Allow",
+      Action   = "sqs:SendMessage",
+      Resource = "arn:aws:sqs:eu-west-2:${var.supplier_api_data_cross_account_target.account_id}:nhs-${var.supplier_api_data_cross_account_target.environment}-response-request-inbound-event-queue"
+      },
+      {
+        Action = [
+          "kms:GenerateDataKey",
+          "kms:Encrypt",
+          "kms:DescribeKey",
+          "kms:Decrypt"
+        ],
+        Effect   = "Allow",
+        Resource = "arn:aws:kms:${var.region}:${var.supplier_api_data_cross_account_target.account_id}:key/*"
+        Condition = {
+          "ForAnyValue:StringEquals" = {
+            "kms:ResourceAliases" = "alias/nhs-${var.supplier_api_data_cross_account_target.environment}-response"
+          }
+        }
+    }]
+  })
 }
 
 resource "aws_iam_role_policy_attachment" "app_response" {
