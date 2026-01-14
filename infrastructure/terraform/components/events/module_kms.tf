@@ -56,7 +56,7 @@ data "aws_iam_policy_document" "kms" {
 
       actions = ["kms:GenerateDataKey"]
       principals {
-        type        = "AWS"
+        type = "AWS"
         identifiers = distinct(concat(
           formatlist("arn:aws:iam::%s:root", var.event_publisher_account_ids),
           var.template_control_cross_account_source != null ? ["arn:aws:iam::${var.template_control_cross_account_source.account_id}:root"] : []
@@ -70,7 +70,7 @@ data "aws_iam_policy_document" "kms" {
           formatlist("arn:aws:iam::%s:role/nhs-*-eventpub", var.event_publisher_account_ids),
           (
             var.template_control_cross_account_source != null
-          ) ? [
+            ) ? [
             "arn:aws:iam::${var.template_control_cross_account_source.account_id}:role/nhs-${var.template_control_cross_account_source.environment}-events-template-control-cross-account"
           ] : []
         ]))

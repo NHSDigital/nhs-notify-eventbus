@@ -1,5 +1,5 @@
 module "core_to_supplier_api_events_dlq" {
-  count = ( var.supplier_api_data_cross_account_target != null ) ? 1 : 0
+  count  = (var.supplier_api_data_cross_account_target != null) ? 1 : 0
   source = "https://github.com/NHSDigital/nhs-notify-shared-modules/releases/download/v2.0.20/terraform-sqs.zip"
 
   aws_account_id  = var.aws_account_id
@@ -14,7 +14,7 @@ module "core_to_supplier_api_events_dlq" {
 }
 
 data "aws_iam_policy_document" "core_to_supplier_api_events_allow_eventbridge" {
-  count = ( var.supplier_api_data_cross_account_target != null ) ? 1 : 0
+  count = (var.supplier_api_data_cross_account_target != null) ? 1 : 0
 
   statement {
     effect = "Allow"

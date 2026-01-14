@@ -5,8 +5,8 @@ resource "aws_cloudwatch_event_rule" "supplier_api_to_core" {
 
   event_pattern = jsonencode({
     "detail" : {
-      subject: [
-        {"prefix": "letter-origin/letter-rendering/"}
+      subject : [
+        { "prefix" : "letter-origin/letter-rendering/" }
       ],
       "type" : [
         { prefix = "uk.nhs.notify.supplier-api.letter.ACCEPTED" },
