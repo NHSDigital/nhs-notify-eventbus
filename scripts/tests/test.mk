@@ -14,6 +14,9 @@ test-unit: # Run your unit tests from scripts/test/unit @Testing
 test-lint: # Lint your code from scripts/test/lint @Testing
 	make _test name="lint"
 
+test-typecheck: # Typecheck your code from scripts/test/typecheck @Testing
+	make _test name="typecheck"
+
 test-coverage: # Evaluate code coverage from scripts/test/coverage @Testing
 	make _test name="coverage"
 
@@ -55,6 +58,7 @@ test: # Run all the test tasks @Testing
 	make \
 		test-unit \
 		test-lint \
+		test-typecheck \
 		test-coverage \
 		test-contract \
 		test-security \
@@ -65,12 +69,14 @@ test: # Run all the test tasks @Testing
 		test-load
 
 _test:
-	set -e
-	script="./scripts/tests/${name}.sh"
-	if [ -e "$${script}" ]; then
-		exec $${script}
-	else
-		echo "make test-${name} not implemented: $${script} not found" >&2
+	set -e; \
+	script="./scripts/tests/${name}.sh"; \
+	if [ -e "$${script}" ]; then \
+		exec $${script}; \
+	else \
+		echo "test-${name}: Not currently implemented"; \
+		echo "Create $${script} to implement this test target"; \
+		exit 0; \
 	fi
 
 ${VERBOSE}.SILENT: \
@@ -83,6 +89,7 @@ ${VERBOSE}.SILENT: \
 	test-soak \
 	test-integration \
 	test-lint \
+	test-typecheck \
 	test-load \
 	test-response-time \
 	test-security \
