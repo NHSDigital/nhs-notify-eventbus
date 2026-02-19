@@ -90,11 +90,11 @@ variable "event_publisher_account_ids" {
 variable "event_target_arns" {
   description = "A map of event target ARNs keyed by name"
   type = object({
-    sms_nudge                               = string
-    notify_core_sns_topic                   = optional(string, null)
-    supplier_api_sns_topic                  = optional(string, null)
-    app_response                            = optional(string, null)
-    client_callbacks                        = optional(string, null)
+    sms_nudge              = string
+    notify_core_sns_topic  = optional(string, null)
+    supplier_api_sns_topic = optional(string, null)
+    app_response           = optional(string, null)
+    client_callbacks       = optional(string, null)
   })
 }
 
