@@ -2,7 +2,7 @@ resource "aws_cloudwatch_metric_alarm" "control_plane_invocations_anomaly" {
   count = var.enable_event_anomaly_detection ? 1 : 0
 
   alarm_name          = "${local.csi}-control-plane-invocations-anomaly"
-  alarm_description   = "ANOMALY: Detects anomalous patterns in events delivered from the control plane event bus to targets"
+  alarm_description   = "RELIABILITY: Detects anomalous patterns in events delivered from the control plane event bus to targets"
   comparison_operator = "LessThanLowerOrGreaterThanUpperThreshold"
   evaluation_periods  = var.event_anomaly_evaluation_periods
   threshold_metric_id = "ad1"
