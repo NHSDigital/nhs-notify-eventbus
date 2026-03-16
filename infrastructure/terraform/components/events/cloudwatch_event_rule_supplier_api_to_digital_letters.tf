@@ -19,5 +19,4 @@ resource "aws_cloudwatch_event_target" "supplier_api_to_digital_letters" {
   arn            = var.event_target_arns["digital_letters_eventbus"]
   target_id      = "supplier-api-to-digital-letters-eventbus"
   event_bus_name = aws_cloudwatch_event_bus.data_plane.name
-  input_path     = "$.detail"
 }
