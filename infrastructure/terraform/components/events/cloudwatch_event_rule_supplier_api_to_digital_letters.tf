@@ -19,7 +19,7 @@ resource "aws_cloudwatch_event_target" "supplier_api_to_digital_letters" {
   arn            = var.event_target_arns["digital_letters_eventbus"]
   target_id      = "supplier-api-to-digital-letters-eventbus"
   event_bus_name = aws_cloudwatch_event_bus.data_plane.name
-  role_arn       = aws_iam_role.supplier_api_to_digital_letters.arn
+  role_arn       = aws_iam_role.supplier_api_to_digital_letters[0].arn
 }
 
 resource "aws_iam_role" "supplier_api_to_digital_letters" {
@@ -42,7 +42,7 @@ resource "aws_iam_role" "supplier_api_to_digital_letters" {
 resource "aws_iam_role_policy" "supplier_api_to_digital_letters" {
   count = var.event_target_arns["digital_letters_eventbus"] != null ? 1 : 0
 
-  role = aws_iam_role.supplier_api_to_digital_letters.id
+  role = aws_iam_role.supplier_api_to_digital_letters[0].id
 
   policy = jsonencode({
     Statement = [{
