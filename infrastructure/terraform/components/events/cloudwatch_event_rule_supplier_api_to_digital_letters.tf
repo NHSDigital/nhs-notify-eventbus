@@ -19,4 +19,36 @@ resource "aws_cloudwatch_event_target" "supplier_api_to_digital_letters" {
   arn            = var.event_target_arns["digital_letters_eventbus"]
   target_id      = "supplier-api-to-digital-letters-eventbus"
   event_bus_name = aws_cloudwatch_event_bus.data_plane.name
+  role_arn       = aws_iam_role.supplier_api_to_digital_letters.arn
+}
+
+resource "aws_iam_role" "supplier_api_to_digital_letters" {
+  count = var.event_target_arns["digital_letters_eventbus"] != null ? 1 : 0
+
+  name = "eventbridge-cross-account"
+
+  assume_role_policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [{
+      Effect = "Allow"
+      Principal = {
+        Service = "events.amazonaws.com"
+      }
+      Action = "sts:AssumeRole"
+    }]
+  })
+}
+
+resource "aws_iam_role_policy" "supplier_api_to_digital_letters" {
+  count = var.event_target_arns["digital_letters_eventbus"] != null ? 1 : 0
+
+  role = aws_iam_role.supplier_api_to_digital_letters.id
+
+  policy = jsonencode({
+    Statement = [{
+      Effect = "Allow"
+      Action = "events:PutEvents"
+      Resource = var.event_target_arns["digital_letters_eventbus"]
+    }]
+  })
 }
