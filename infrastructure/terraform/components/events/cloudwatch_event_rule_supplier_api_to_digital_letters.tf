@@ -6,7 +6,17 @@ resource "aws_cloudwatch_event_rule" "supplier_api_to_digital_letters" {
   event_pattern = jsonencode({
     "detail" : {
       "type" : [
-        { "prefix" : "uk.nhs.notify.supplier-api.letter." },
+        { prefix = "uk.nhs.notify.supplier-api.letter.ACCEPTED" },
+        { prefix = "uk.nhs.notify.supplier-api.letter.CANCELLED" },
+        { prefix = "uk.nhs.notify.supplier-api.letter.DELIVERED" },
+        { prefix = "uk.nhs.notify.supplier-api.letter.DISPATCHED" },
+        { prefix = "uk.nhs.notify.supplier-api.letter.ENCLOSED" },
+        { prefix = "uk.nhs.notify.supplier-api.letter.FAILED" },
+        { prefix = "uk.nhs.notify.supplier-api.letter.FORWARDED" },
+        { prefix = "uk.nhs.notify.supplier-api.letter.PENDING" },
+        { prefix = "uk.nhs.notify.supplier-api.letter.PRINTED" },
+        { prefix = "uk.nhs.notify.supplier-api.letter.REJECTED" },
+        { prefix = "uk.nhs.notify.supplier-api.letter.RETURNED" }
       ]
     }
   })
@@ -46,8 +56,8 @@ resource "aws_iam_role_policy" "supplier_api_to_digital_letters" {
 
   policy = jsonencode({
     Statement = [{
-      Effect = "Allow"
-      Action = "events:PutEvents"
+      Effect   = "Allow"
+      Action   = "events:PutEvents"
       Resource = var.event_target_arns["digital_letters_eventbus"]
     }]
   })
