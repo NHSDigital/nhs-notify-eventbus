@@ -35,7 +35,7 @@ resource "aws_cloudwatch_event_target" "supplier_api_to_digital_letters" {
 resource "aws_iam_role" "supplier_api_to_digital_letters" {
   count = var.event_target_arns["digital_letters_eventbus"] != null ? 1 : 0
 
-  name = "eventbridge-cross-account"
+  name = "${local.csi}-supplier-api-to-digital-letter"
 
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
