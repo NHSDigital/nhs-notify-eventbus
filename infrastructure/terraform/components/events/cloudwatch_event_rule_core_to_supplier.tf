@@ -22,6 +22,7 @@ resource "aws_cloudwatch_event_target" "core_to_supplier_api_events" {
   target_id      = "supplier-api-data-incoming"
   event_bus_name = aws_cloudwatch_event_bus.data_plane.name
   role_arn       = aws_iam_role.core_to_supplier_api_events[0].arn
+  input_path     = "$.detail"
   dead_letter_config {
     arn = module.core_to_supplier_api_events_dlq[0].sqs_queue_arn
   }
