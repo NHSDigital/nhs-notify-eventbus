@@ -96,6 +96,7 @@ variable "event_target_arns" {
     app_response             = optional(string, null)
     client_callbacks         = optional(string, null)
     digital_letters_eventbus = optional(string, null)
+    reporting                = optional(string, null)
   })
 }
 
@@ -119,6 +120,15 @@ variable "template_control_cross_account_source" {
 
 variable "supplier_api_data_cross_account_target" {
   description = "Object containing environment and Account ID of the Supplier API Account to send Supplier Events"
+  type = object({
+    environment = optional(string, null)
+    account_id  = optional(string, null)
+  })
+  default = null
+}
+
+variable "reporting_data_cross_account_target" {
+  description = "Object containing environment and Account ID of the Reporting Account to send Reporting events to"
   type = object({
     environment = optional(string, null)
     account_id  = optional(string, null)
