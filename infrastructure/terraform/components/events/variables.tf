@@ -134,6 +134,14 @@ variable "reporting_data_cross_account_target" {
     account_id  = optional(string, null)
   })
   default = null
+
+  validation {
+    condition = var.reporting_data_cross_account_target == null || (
+      var.reporting_data_cross_account_target.environment != null &&
+      var.reporting_data_cross_account_target.account_id != null
+    )
+    error_message = "When reporting_data_cross_account_target is set, both environment and account_id must be provided."
+  }
 }
 
 variable "notify_core_sns_kms_arn" {
