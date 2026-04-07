@@ -23,7 +23,7 @@ resource "aws_cloudwatch_event_target" "digital_letters_reporting" {
 }
 
 resource "aws_iam_role" "digital_letters_reporting" {
-  count = var.reporting_data_cross_account_target != null ? 1 : 0
+  count = (var.event_target_arns["reporting"] != null) && (var.reporting_data_cross_account_target != null) ? 1 : 0
 
   name = "${local.csi}-digital-letters-reporting"
 
@@ -40,7 +40,7 @@ resource "aws_iam_role" "digital_letters_reporting" {
 }
 
 resource "aws_iam_role_policy" "digital_letters_reporting" {
-  count = var.reporting_data_cross_account_target != null ? 1 : 0
+  count = (var.event_target_arns["reporting"] != null) && (var.reporting_data_cross_account_target != null) ? 1 : 0
 
   name = "${local.csi}-digital-letters-reporting-policy"
 
