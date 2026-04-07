@@ -47,6 +47,7 @@ resource "aws_iam_role_policy" "digital_letters_reporting" {
   role = aws_iam_role.digital_letters_reporting[0].id
 
   policy = jsonencode({
+    Version = "2012-10-17"
     Statement = [{
       Effect   = "Allow"
       Action   = "sns:Publish"
