@@ -96,6 +96,7 @@ variable "event_target_arns" {
     app_response             = optional(string, null)
     client_callbacks         = optional(string, null)
     digital_letters_eventbus = optional(string, null)
+    reporting                = optional(string, null)
   })
 }
 
@@ -124,6 +125,23 @@ variable "supplier_api_data_cross_account_target" {
     account_id  = optional(string, null)
   })
   default = null
+}
+
+variable "reporting_data_cross_account_target" {
+  description = "Object containing environment and Account ID of the Reporting Account to send Reporting events to"
+  type = object({
+    environment = optional(string, null)
+    account_id  = optional(string, null)
+  })
+  default = null
+
+  validation {
+    condition = var.reporting_data_cross_account_target == null || (
+      var.reporting_data_cross_account_target.environment != null &&
+      var.reporting_data_cross_account_target.account_id != null
+    )
+    error_message = "When reporting_data_cross_account_target is set, both environment and account_id must be provided."
+  }
 }
 
 variable "notify_core_sns_kms_arn" {
