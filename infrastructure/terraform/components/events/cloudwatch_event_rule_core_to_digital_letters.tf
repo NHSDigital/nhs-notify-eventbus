@@ -10,7 +10,7 @@ resource "aws_cloudwatch_event_rule" "core_to_digital_letters" {
       ],
       "data" : {
         "supplierStatus" : [
-          "paperletteroptedout"
+          "paper_letter_opted_out"
         ]
       }
     }
