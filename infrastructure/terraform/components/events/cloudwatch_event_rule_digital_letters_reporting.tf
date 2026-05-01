@@ -50,10 +50,11 @@ resource "aws_iam_role_policy" "digital_letters_reporting" {
     Version = "2012-10-17"
     Statement = [{
       Effect = "Allow"
-      Action = [
-        "firehose:PutRecord",
-        "firehose:PutRecordBatch"
-      ]
+      # Action = [
+      #   "firehose:PutRecord",
+      #   "firehose:PutRecordBatch"
+      # ]
+      Action   = "SNS:Publish"
       Resource = var.event_target_arns["reporting"]
       },
       {
