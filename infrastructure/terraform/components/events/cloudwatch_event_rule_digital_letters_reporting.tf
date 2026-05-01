@@ -49,8 +49,11 @@ resource "aws_iam_role_policy" "digital_letters_reporting" {
   policy = jsonencode({
     Version = "2012-10-17"
     Statement = [{
-      Effect   = "Allow"
-      Action   = "sns:Publish"
+      Effect = "Allow"
+      Action = [
+        "firehose:PutRecord",
+        "firehose:PutRecordBatch"
+      ]
       Resource = var.event_target_arns["reporting"]
       },
       {
@@ -64,7 +67,7 @@ resource "aws_iam_role_policy" "digital_letters_reporting" {
         Resource = "arn:aws:kms:${var.region}:${var.reporting_data_cross_account_target.account_id}:key/*"
         Condition = {
           "ForAnyValue:StringEquals" = {
-            "kms:ResourceAliases" = "alias/nhs-${var.reporting_data_cross_account_target.environment}-reporting"
+            "kms:ResourceAliases" = "alias/nhs-notify-${var.reporting_data_cross_account_target.environment}-reporting-s3"
           }
         }
     }]
